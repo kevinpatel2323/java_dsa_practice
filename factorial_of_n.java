@@ -5,11 +5,11 @@ public class factorial_of_n {
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
-        int ans = 1;
+        int answer = 1;
 
         for (int i = 1; i <= n; i++) {
-            ans = ans*i;
+            answer = answer*i;
         }
-        System.out.println(ans);
+        System.out.println(answer);
     }
 }
