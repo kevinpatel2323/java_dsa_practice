@@ -51,7 +51,5 @@ public class binomial_coefficent {
         int answer  = nfact/(rfact * nrfact);
 
         System.out.println(answer);
-
-
     }
 }
