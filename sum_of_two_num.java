@@ -13,9 +13,6 @@ class sum_of_two_num{
         System.out.println("Enter second number : ");
         int s = sc.nextInt();
         int ans =  addition(f, s);
-        System.out.println(ans);
-
-       
-
+        System.out.println("sum of two numberrs is : " + ans);
     }
 }
