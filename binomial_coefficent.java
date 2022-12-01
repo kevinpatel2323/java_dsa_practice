@@ -35,6 +35,7 @@ public class binomial_coefficent {
 
         int n;
         int r;
+        
          
         System.out.println("Enter n : ");
         n = sc.nextInt();
