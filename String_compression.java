@@ -13,6 +13,7 @@ public class String_compression {
                 s.append(count);
             }
         }
+        
         return s.toString();
     }
     public static void main(String[] args) {
