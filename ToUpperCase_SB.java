@@ -23,6 +23,5 @@ public class ToUpperCase_SB {
 
         String result  = toUpperCase(str);
         System.out.println(result);
-
     }
 }
