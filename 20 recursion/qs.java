@@ -1,7 +1,0 @@
-/**
- * qs
- */
-public class qs {
-
-    
-}
