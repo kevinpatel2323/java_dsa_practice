@@ -46,7 +46,7 @@ public class rmvNthNdeFrmLst {
         Node temp = head;
         int currIdx = 0;
 
-        while (i<currIdx) {
+        while (currIdx<i) {
             temp = temp.next;
             currIdx++;
         }

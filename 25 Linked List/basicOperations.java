@@ -49,7 +49,7 @@ public class basicOperations {
         Node temp = head;
         int currIdx = 0;
 
-        while (i<currIdx) {
+        while (currIdx<i) {
             temp = temp.next;
             currIdx++;
         }
@@ -152,16 +152,17 @@ public class basicOperations {
         ll.addLast(1);
         ll.addLast(2);
         ll.addMiddle(9, 1);
+        ll.addMiddle(9, 4);
         ll.printLL();
-        ll.removeFirst();
-        ll.removeLast();
-        ll.printLL();
-        ll.removeFirst();
-        ll.removeLast();
-        ll.printLL();
-        System.out.println(c);
-        ll.iterativeSearch(1);
-        ll.recursiveSearch(head, 0, 0);
+        // ll.removeFirst();
+        // ll.removeLast();
+        // ll.printLL();
+        // ll.removeFirst();
+        // ll.removeLast();
+        // ll.printLL();
+        // System.out.println(c);
+        // ll.iterativeSearch(1);
+        // ll.recursiveSearch(head, 0, 0);
         
     }
 }

@@ -1,4 +1,4 @@
-public class reverseLL {
+public class palindromeLL {
     public static class Node {
         int data;
         Node next;
@@ -11,6 +11,7 @@ public class reverseLL {
 
     public static Node head;
     public static Node tail;
+    public static Node headLast;
     public static int c;
 
     public void addFirst(int data){
@@ -129,52 +130,75 @@ public class reverseLL {
         recursiveSearch(temp.next, key, idx+1);
     }
 
-    public void reverse_LL(){
-        Node prev = null;
-        Node curr = tail = head;
-        Node next;
+    public static Node getMiddle(Node temp) {
+        Node slow = temp;
+        Node fast = temp;
 
+        while (fast != null && fast.next != null) {
+         slow = slow.next;
+         fast  = fast.next.next;   
+        }
+
+        return slow;
+    }
+
+    public void reverseFromMiddle(){
+        Node midNode = getMiddle(head);
+        Node prev = null;
+        Node curr = midNode;
+        Node next;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
-        }  
-        head = prev;
+        }
+        tail = prev;
+    }
+
+    public boolean checkPalindromeLL(Node head,Node tail){
+        while (head.next != null ||tail.next != null) {
+            if (head.data != tail.data) {
+                return false;
+            }
+            head = head.next;
+            tail = tail.next;
+        }
+        return true;
     }
 
 
     public void printLL() {
         Node temp = head;
 
-        while (temp != null) {
+        while (temp != null ) {
             System.out.print(temp.data + "->");
             temp = temp.next;
         }
         System.out.println("null");
     }
-
-
     public static void main(String[] args) {
-        reverseLL ll = new reverseLL();
+        palindromeLL ll = new palindromeLL();
 
         ll.addFirst(0);
         ll.addFirst(1);
         ll.addFirst(2);
         ll.addLast(1);
         ll.addLast(2);
-        ll.addMiddle(9, 1);
-        // ll.printLL();
-        // ll.removeFirst();
-        // ll.removeLast();
-        // ll.printLL();
-        // ll.removeFirst();
-        // ll.removeLast();
+        ll.addMiddle(9,  1);
+        ll.addMiddle(9, 3);
         ll.printLL();
+        // ll.removeFirst();
+        // ll.removeLast();
+        // ll.printLL();
+        // ll.removeFirst();
+        // ll.removeLast();
+        // ll.printLL();
         // System.out.println(c);
         // ll.iterativeSearch(1);
         // ll.recursiveSearch(head, 0, 0);
-        // ll.reverse_LL();
-        // ll.printLL();
+        ll.reverseFromMiddle();
+        System.out.println(ll.checkPalindromeLL(head,tail));
+
     }
-}
+}    
