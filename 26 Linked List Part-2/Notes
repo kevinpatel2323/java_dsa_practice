@@ -1,0 +1,8 @@
+
+Floyde's cycle finding algorithm
+
+Example of a cycle
+    O->O->O->O->O->O
+                ^  | 
+                |  |
+                O<-|

@@ -1,0 +1,4 @@
+Slow Fast poiter approach used in finding mid of a Linked List
+    -Slow pointer moves forward 1 step at a time
+    -Fast pointer moves forward 2 step at a time
+    hence after completion the slow pointer reaches exactly at the half of fast pointer i.e. middle pointer

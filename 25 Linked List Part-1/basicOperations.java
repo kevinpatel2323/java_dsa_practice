@@ -1,5 +1,4 @@
 //Garbage collectors
-import java.util.*;
 
 public class basicOperations {
     public static class Node {
