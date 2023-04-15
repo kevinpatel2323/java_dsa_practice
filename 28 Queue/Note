@@ -1,0 +1,15 @@
+For queue using 2 stacks we have two choices
+    1 - pop O(n)
+    2 - push O(n)
+
+IMPORTANT! 'a' - 'z' = 25
+
+Interleave queue - similar to Zig-Zag linkedList 
+
+Dequeue - to remove element
+
+Deque - Double ended queue
+
+Queue and Stack can be implemeted by using Deque
+    - Create class Queue or Stack
+        -add required methods only 
