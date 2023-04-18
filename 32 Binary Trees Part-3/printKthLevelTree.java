@@ -1,7 +1,6 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
-public class diameterOfTree {
+public class printKthLevelTree {
     static class Node {
         int data;
         Node left;
@@ -63,71 +62,33 @@ public class diameterOfTree {
             }
         }
 
-        public static int maxHeight(Node root) {
+        public static void printKLevel(Node root,int level,int k) {
             if (root == null) {
-                return 0;
+                return;
+            }
+            if (level == k) {
+                System.out.println(root.data);
+                return;
             }
 
-            int lh = maxHeight(root.left);
-            int rh = maxHeight(root.right);
-
-            return Math.max(lh, rh)+1;
+            printKLevel(root.left, level+1, k);
+            printKLevel(root.right, level+1, k);
         }
 
-        public static int diameter(Node root) {//O(n^2)
-            if (root == null) {
-                return 0;
-            }
-    
-            int ld = diameter(root.left);
-            int lh = maxHeight(root.left);
-            int rd = diameter(root.right);
-            int rh = maxHeight(root.right);
 
-            int selfDiameter = lh + rh + 1;
-            
-            return Math.max(selfDiameter, Math.max(ld,rd));
-        }
-
-        static class Info {
-            int diam;
-            int ht;
-
-            public Info(int diam,int ht){
-                this.diam = diam;
-                this.ht = ht;
-            }
-        }
-
-        public static Info diameter1(Node root) {//O(n)
-            if (root == null) {
-                return new Info(0,0);
-            }
-
-            Info leftInfo = diameter1(root.left);
-            Info rightInfo = diameter1(root.right);
-
-            int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht+rightInfo.ht+1);
-            int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
-
-            return new Info(diam, ht);
-        }
     }
-
     
 
     
     public static void main(String[] args) {
         int[] nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
+
         BinaryTree tree = new BinaryTree();
-
         Node root = tree.buidTree(nodes);
-
         tree.printLevelOrder(root);
 
-        System.out.println("Max height = " + tree.maxHeight(root));
+        tree.printKLevel(root, 0, 1);
 
-        System.out.println("Diameter = " + tree.diameter1(root).diam);
 
     }
 }
