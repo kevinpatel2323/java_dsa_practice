@@ -1,0 +1,6 @@
+Lambda functions in java
+
+Comparators
+
+ Arrays.sort(a,Collections.reverseOrder());
+    -to use the above data type must be Integer not int
