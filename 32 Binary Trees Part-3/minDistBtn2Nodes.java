@@ -1,10 +1,6 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
-
-public class topViewTree {
-
+public class minDistBtn2Nodes {
     static class Node {
         int data;
         Node left;
@@ -66,58 +62,76 @@ public class topViewTree {
             }
         }
 
-        static class Info{
-            Node node;
-            int hd;
+        public static void printKLevel(Node root,int level,int k) {
+            if (root == null) {
+                return;
+            }
+            if (level == k) {
+                System.out.println(root.data);
+                return;
+            }
 
-            Info(Node node,int hd){
-                this.node = node;
-                this.hd = hd;
+            printKLevel(root.left, level+1, k);
+            printKLevel(root.right, level+1, k);
+        }
+
+        public static Node lca(Node root,int n1,int n2) {
+            if (root == null || root.data == n1 || root.data == n2) {
+                return root;
+            }
+
+            Node left = lca(root.left, n1, n2);
+            Node right = lca(root.right, n1, n2);
+
+            if (right == null) {
+                return left;
+            }
+
+            if (left == null) {
+                return right;
+            }
+
+            return root;
+        }
+
+        public static int lcaDist(Node root, int n) {
+            if (root == null) {
+                return -1;
+            }
+
+            if (root.data == n) {
+                return 0;
+            }
+
+            int ld = lcaDist(root.left, n);
+            int rd = lcaDist(root.right, n);
+
+            if (ld == -1 && rd == -1) {
+                return -1;
+            }
+            else if (ld == -1) {
+                return rd +1;
+            }
+            else{
+                return ld +1;
             }
         }
 
-        public static void topView(Node root) {
-            Queue<Info> q = new LinkedList<>();
-            HashMap<Integer,Node> map = new HashMap<>();
+        public static int minDist(Node root, int n1,int n2) {
+            Node lowestCommonAncestor = lca(root,n1,n2);
 
-            int min = 0, max = 0;
+            int d1 = lcaDist(lowestCommonAncestor,n1);
+            int d2 = lcaDist(lowestCommonAncestor,n2);
 
-            q.add(new Info(root, 0));
-            q.add(null);
-
-            while(!q.isEmpty()){
-                Info curr = q.remove();
-                if (curr == null) {
-                    if (q.isEmpty()) {
-                        break;
-                    }
-                    else{
-                        q.add(null);
-                    }
-                }
-                else{
-                    if (!map.containsKey(curr.hd)) {
-                        map.put(curr.hd, curr.node);
-                    }
-
-                    if (curr.node.left != null) {
-                        q.add(new Info(curr.node.left, curr.hd-1));
-                        min = Math.min(min,curr.hd-1);
-                    }
-
-                    if (curr.node.right != null) {
-                        q.add(new Info(curr.node.right, curr.hd+1));
-                        max = Math.max(min,curr.hd+1);
-                    }
-                }
-            }
-
-            for (int i = min; i <= max; i++) {
-                System.out.println(map.get(i).data);
-            }
-
+            return d1 + d2;
         }
+
+        
+
+
     }
+    
+
     
     public static void main(String[] args) {
         int[] nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -127,6 +141,6 @@ public class topViewTree {
         tree.printLevelOrder(root);
 
 
-        tree.topView(root);
+        System.out.println(tree.minDist(root,4,6));
     }
 }

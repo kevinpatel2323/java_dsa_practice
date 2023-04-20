@@ -1,10 +1,6 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
-
-public class topViewTree {
-
+public class KthAncestor {
     static class Node {
         int data;
         Node left;
@@ -66,58 +62,33 @@ public class topViewTree {
             }
         }
 
-        static class Info{
-            Node node;
-            int hd;
-
-            Info(Node node,int hd){
-                this.node = node;
-                this.hd = hd;
-            }
-        }
-
-        public static void topView(Node root) {
-            Queue<Info> q = new LinkedList<>();
-            HashMap<Integer,Node> map = new HashMap<>();
-
-            int min = 0, max = 0;
-
-            q.add(new Info(root, 0));
-            q.add(null);
-
-            while(!q.isEmpty()){
-                Info curr = q.remove();
-                if (curr == null) {
-                    if (q.isEmpty()) {
-                        break;
-                    }
-                    else{
-                        q.add(null);
-                    }
-                }
-                else{
-                    if (!map.containsKey(curr.hd)) {
-                        map.put(curr.hd, curr.node);
-                    }
-
-                    if (curr.node.left != null) {
-                        q.add(new Info(curr.node.left, curr.hd-1));
-                        min = Math.min(min,curr.hd-1);
-                    }
-
-                    if (curr.node.right != null) {
-                        q.add(new Info(curr.node.right, curr.hd+1));
-                        max = Math.max(min,curr.hd+1);
-                    }
-                }
+        public static int KAncestor(Node root,int n,int k) {
+            if (root == null) {
+                return -1;
             }
 
-            for (int i = min; i <= max; i++) {
-                System.out.println(map.get(i).data);
+            if (root.data == n) {
+                return 0;
             }
 
+            int ld = KAncestor(root.left, n, k);
+            int rd = KAncestor(root.right, n, k);
+
+            if (ld == -1 && rd == -1) {
+                return -1;
+            }
+
+            int max = Math.max(ld,rd);
+
+            if (max+1 == k) {
+                System.out.println(root.data);
+            }
+
+            return max+1;
         }
     }
+    
+
     
     public static void main(String[] args) {
         int[] nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -126,7 +97,6 @@ public class topViewTree {
         Node root = tree.buidTree(nodes);
         tree.printLevelOrder(root);
 
-
-        tree.topView(root);
+        tree.KAncestor(root, 6, 2);
     }
 }

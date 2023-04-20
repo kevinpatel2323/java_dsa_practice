@@ -1,10 +1,6 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
-
-public class topViewTree {
-
+public class transformSumTree {
     static class Node {
         int data;
         Node left;
@@ -66,58 +62,25 @@ public class topViewTree {
             }
         }
 
-        static class Info{
-            Node node;
-            int hd;
-
-            Info(Node node,int hd){
-                this.node = node;
-                this.hd = hd;
-            }
-        }
-
-        public static void topView(Node root) {
-            Queue<Info> q = new LinkedList<>();
-            HashMap<Integer,Node> map = new HashMap<>();
-
-            int min = 0, max = 0;
-
-            q.add(new Info(root, 0));
-            q.add(null);
-
-            while(!q.isEmpty()){
-                Info curr = q.remove();
-                if (curr == null) {
-                    if (q.isEmpty()) {
-                        break;
-                    }
-                    else{
-                        q.add(null);
-                    }
-                }
-                else{
-                    if (!map.containsKey(curr.hd)) {
-                        map.put(curr.hd, curr.node);
-                    }
-
-                    if (curr.node.left != null) {
-                        q.add(new Info(curr.node.left, curr.hd-1));
-                        min = Math.min(min,curr.hd-1);
-                    }
-
-                    if (curr.node.right != null) {
-                        q.add(new Info(curr.node.right, curr.hd+1));
-                        max = Math.max(min,curr.hd+1);
-                    }
-                }
+        public static int transformSum(Node root) {
+            if (root == null) {
+                return 0;
             }
 
-            for (int i = min; i <= max; i++) {
-                System.out.println(map.get(i).data);
-            }
+            int leftChild = transformSum(root.left);
+            int rightChild = transformSum(root.right);
 
+            int data = root.data;
+
+            int newLeft = root.left == null ? 0 : root.left.data;
+            int newRight = root.right == null ? 0 : root.right.data;
+
+            root.data = newLeft + newRight + leftChild + rightChild;
+            return data;
         }
     }
+    
+
     
     public static void main(String[] args) {
         int[] nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -126,7 +89,8 @@ public class topViewTree {
         Node root = tree.buidTree(nodes);
         tree.printLevelOrder(root);
 
+        tree.transformSum(root);
 
-        tree.topView(root);
+        tree.printLevelOrder(root);
     }
 }
