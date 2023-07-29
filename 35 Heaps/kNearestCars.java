@@ -20,6 +20,7 @@ public class kNearestCars {
             return this.d- p2.d;
         }
 
+        
     }
     public static void main(String[] args) {
         int pts[][] = {{3,3},{5,-1},{-2,4}};
